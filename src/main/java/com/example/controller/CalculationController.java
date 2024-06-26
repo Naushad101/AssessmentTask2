@@ -5,17 +5,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.Scanner;
 import com.example.service.CalculationService;
 
 @RestController
 public class CalculationController {
-    
-    @Autowired
-    CalculationService calculationService;
+
+    Scanner sc = new Scanner(System.in);
+    int number = sc.nextInt();
+
+    static{
+        System.out.println("Enter the number: ");
+    }
+
+    CalculationService calculationService = new CalculationService(number);
 
     @GetMapping("/run")
-    public void getAllres(){
+    public void getAllrun(){
+
         Thread[] threads = {new Thread(calculationService.squareTask),new Thread(calculationService.cubeTask),
                             new Thread(calculationService.factorialTask),new Thread(calculationService.armstrongTask),
                             new Thread(calculationService.palindromeTask),new Thread(calculationService.evenTask),

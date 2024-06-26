@@ -1,50 +1,72 @@
 package com.example.service;
 
+import java.util.Scanner;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service
+@Slf4j
 public class CalculationService{
 
-    
-    int number=153;
+    int number;
+    public CalculationService(int number){
+        this.number=number;
+    }
+
+
+    public int square(int number){
+        return number*number;
+    }
+
     public Runnable squareTask = () -> {
-        int square = number * number;
-        System.out.println("Square of " + number + ": " + square);
+        System.out.println("Square of number is: "+ this.square(number));
     };
+
+    public int cube(int number){
+        return number*number*number;
+    }
  
     // Runnable for cube calculation
     public Runnable cubeTask = () -> {
-        int cube = number * number * number;
-        System.out.println("Cube of " + number + ": " + cube);
+        
+        System.out.println("Cube of " + number + ": " + this.cube(this.number));
     };
  
+    public boolean  isEvenOrOdd(int number){
+        return number%2==0;
+    }
+
     // Runnable for even check
     public Runnable evenTask = () -> {
-        boolean isEven = number % 2 == 0;
-        System.out.println(number + " is even: " + isEven);
+        System.out.println(number + " is even: " + this.isEvenOrOdd(this.number));
     };
  
-    // Runnable for prime check
-    public Runnable primeTask = () -> {
-        boolean isPrime = true;
+
+
+    public boolean isPrime(int number){
+        boolean flag = true;
         if (number <= 1) {
-            isPrime = false;
+            flag = false;
         } else {
             for (int i = 2; i <= Math.sqrt(number); i++) {
                 if (number % i == 0) {
-                    isPrime = false;
+                    flag = false;
                     break;
                 }
             }
         }
-        System.out.println(number + " is prime: " + isPrime);
+        return flag;
+    }
+
+    // Runnable for prime check
+    public Runnable primeTask = () -> {
+        System.out.println(number + " is prime: " + this.isPrime(this.number));
     };
- 
-    // Runnable for Armstrong number check
-    public Runnable armstrongTask = () -> {
+
+
+    public boolean isArmstrong(int number){
         int original = number;
         int sum = 0;
         int digits = String.valueOf(number).length();
@@ -54,12 +76,15 @@ public class CalculationService{
             sum += Math.pow(digit, digits);
             temp /= 10;
         }
-        boolean isArmstrong = original == sum;
-        System.out.println(number + " is Armstrong: " + isArmstrong);
-    };
+        return original==sum;
+    }
  
-    // Runnable for palindrome check
-    public Runnable palindromeTask = () -> {
+    // Runnable for Armstrong number check
+    public Runnable armstrongTask = () -> {
+        System.out.println(number + " is Armstrong: " + this.isArmstrong(this.number));
+    };
+
+    public boolean isPalindrome(int number){
         int original = number;
         int reverse = 0;
         int temp = number;
@@ -68,28 +93,46 @@ public class CalculationService{
             reverse = reverse * 10 + digit;
             temp /= 10;
         }
-        boolean isPalindrome = original == reverse;
-        System.out.println(number + " is palindrome: " + isPalindrome);
+        return original==reverse;
+    }
+ 
+    // Runnable for palindrome check
+    public Runnable palindromeTask = () -> {
+        System.out.println(number + " is palindrome: " + this.isPalindrome(this.number));
     };
  
+
+    public int factorial(int number){
+        int ans = 1;
+        for (int i = 1; i <= number; i++) {
+            ans *= i;
+        }
+        return ans;
+    }
+
     // Runnable for factorial calculation
     public Runnable factorialTask = () -> {
         int factorial = 1;
         for (int i = 1; i <= number; i++) {
             factorial *= i;
         }
-        System.out.println("Factorial of " + number + ": " + factorial);
+        System.out.println("Factorial of " + number + ": " + this.factorial(this.number));
     };
  
-    // Runnable for reverse calculation
-    public Runnable reverseTask = () -> {
-        int reverse = 0;
+
+    public int reverse(int number){
+        int num = 0;
         int temp = number;
         while (temp != 0) {
-            reverse = reverse * 10 + temp % 10;
+            num = num * 10 + temp % 10;
             temp /= 10;
         }
-        System.out.println("Reverse of " + number + ": " + reverse);
+        return num;
+    }
+
+    // Runnable for reverse calculation
+    public Runnable reverseTask = () -> {
+        System.out.println("Reverse of " + number + ": " + this.reverse(this.number));
     };
 
 }
