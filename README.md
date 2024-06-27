@@ -1,5 +1,5 @@
 <h1>Project Description:</h1>
-The project is a Spring Boot application that performs various mathematical calculations asynchronously using Runnable interfsce. It includes methods to calculate square, cube, factorial, Armstrong number, palindrome, even/odd, prime number, and reverse of a number.
+The project is a Spring Boot application that performs various mathematical calculations asynchronously using Runnable interface. It includes methods to calculate square, cube, factorial, Armstrong number, palindrome, even/odd, prime number, and reverse of a number.
 <h3>Controller Layer:</h3>
 
 Receives HTTP requests from clients and routes them to appropriate methods.
