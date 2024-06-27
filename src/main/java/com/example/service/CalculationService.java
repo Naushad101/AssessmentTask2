@@ -1,51 +1,55 @@
 package com.example.service;
 
-import java.util.Scanner;
-
-import org.springframework.scheduling.annotation.Async;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
-public class CalculationService{
+@Service
+public class CalculationService {
 
-    int number;
-    public CalculationService(int number){
-        this.number=number;
+    private int number;
+
+    public CalculationService(int number) {
+        this.number = number;
     }
 
-
-    public int square(int number){
-        return number*number;
+    public int square(int number) {
+        return number * number;
     }
 
     public Runnable squareTask = () -> {
-        System.out.println("Square of number is: "+ this.square(number));
+        try {
+            System.out.println("Square of number is: " + this.square(number));
+        } catch (Exception e) {
+            log.error("Exception occurred in squareTask: " + e.getMessage(), e);
+        }
     };
 
-    public int cube(int number){
-        return number*number*number;
+    public int cube(int number) {
+        return number * number * number;
     }
- 
-    // Runnable for cube calculation
+
     public Runnable cubeTask = () -> {
-        
-        System.out.println("Cube of " + number + ": " + this.cube(this.number));
+        try {
+            System.out.println("Cube of " + number + ": " + this.cube(this.number));
+        } catch (Exception e) {
+            log.error("Exception occurred in cubeTask: " + e.getMessage(), e);
+        }
     };
- 
-    public boolean  isEvenOrOdd(int number){
-        return number%2==0;
+
+    public boolean isEvenOrOdd(int number) {
+        return number % 2 == 0;
     }
 
-    // Runnable for even check
     public Runnable evenTask = () -> {
-        System.out.println(number + " is even: " + this.isEvenOrOdd(this.number));
+        try {
+            System.out.println(number + " is even: " + this.isEvenOrOdd(this.number));
+        } catch (Exception e) {
+            log.error("Exception occurred in evenTask: " + e.getMessage(), e);
+        }
     };
- 
 
-
-    public boolean isPrime(int number){
+    public boolean isPrime(int number) {
         boolean flag = true;
         if (number <= 1) {
             flag = false;
@@ -60,13 +64,15 @@ public class CalculationService{
         return flag;
     }
 
-    // Runnable for prime check
     public Runnable primeTask = () -> {
-        System.out.println(number + " is prime: " + this.isPrime(this.number));
+        try {
+            System.out.println(number + " is prime: " + this.isPrime(this.number));
+        } catch (Exception e) {
+            log.error("Exception occurred in primeTask: " + e.getMessage(), e);
+        }
     };
 
-
-    public boolean isArmstrong(int number){
+    public boolean isArmstrong(int number) {
         int original = number;
         int sum = 0;
         int digits = String.valueOf(number).length();
@@ -76,15 +82,18 @@ public class CalculationService{
             sum += Math.pow(digit, digits);
             temp /= 10;
         }
-        return original==sum;
+        return original == sum;
     }
- 
-    // Runnable for Armstrong number check
+
     public Runnable armstrongTask = () -> {
-        System.out.println(number + " is Armstrong: " + this.isArmstrong(this.number));
+        try {
+            System.out.println(number + " is Armstrong: " + this.isArmstrong(this.number));
+        } catch (Exception e) {
+            log.error("Exception occurred in armstrongTask: " + e.getMessage(), e);
+        }
     };
 
-    public boolean isPalindrome(int number){
+    public boolean isPalindrome(int number) {
         int original = number;
         int reverse = 0;
         int temp = number;
@@ -93,16 +102,18 @@ public class CalculationService{
             reverse = reverse * 10 + digit;
             temp /= 10;
         }
-        return original==reverse;
+        return original == reverse;
     }
- 
-    // Runnable for palindrome check
-    public Runnable palindromeTask = () -> {
-        System.out.println(number + " is palindrome: " + this.isPalindrome(this.number));
-    };
- 
 
-    public int factorial(int number){
+    public Runnable palindromeTask = () -> {
+        try {
+            System.out.println(number + " is palindrome: " + this.isPalindrome(this.number));
+        } catch (Exception e) {
+            log.error("Exception occurred in palindromeTask: " + e.getMessage(), e);
+        }
+    };
+
+    public int factorial(int number) {
         int ans = 1;
         for (int i = 1; i <= number; i++) {
             ans *= i;
@@ -110,17 +121,16 @@ public class CalculationService{
         return ans;
     }
 
-    // Runnable for factorial calculation
     public Runnable factorialTask = () -> {
-        int factorial = 1;
-        for (int i = 1; i <= number; i++) {
-            factorial *= i;
+        try {
+            int factorial = this.factorial(this.number);
+            System.out.println("Factorial of " + number + ": " + factorial);
+        } catch (Exception e) {
+            log.error("Exception occurred in factorialTask: " + e.getMessage(), e);
         }
-        System.out.println("Factorial of " + number + ": " + this.factorial(this.number));
     };
- 
 
-    public int reverse(int number){
+    public int reverse(int number) {
         int num = 0;
         int temp = number;
         while (temp != 0) {
@@ -130,9 +140,11 @@ public class CalculationService{
         return num;
     }
 
-    // Runnable for reverse calculation
     public Runnable reverseTask = () -> {
-        System.out.println("Reverse of " + number + ": " + this.reverse(this.number));
+        try {
+            System.out.println("Reverse of " + number + ": " + this.reverse(this.number));
+        } catch (Exception e) {
+            log.error("Exception occurred in reverseTask: " + e.getMessage(), e);
+        }
     };
-
 }
